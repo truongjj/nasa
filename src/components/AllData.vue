@@ -25,19 +25,10 @@ export default {
       })
     }
   },
-  methods:{
-    exe(){
-      console.log("exe")
-    }
-  },
   components:{
     ListView
   },
   methods: {
-
-    dex(){
-      console.log("dex")
-    },
     ...mapActions(["searchData"]),
   },
 };
