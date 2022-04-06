@@ -24,9 +24,9 @@ export default {
     this.listImages = JSON.parse(localStorage.getItem('data'));
     if(this.listImages)
     {   
-        this.listRemovedImage = this.listImages.filter((item)=>{
-            return item.status.removed===true
-        });
+      this.listRemovedImage = this.listImages.filter((item)=>{
+        return item.status.removed===true;
+      });
     }
   }
 };

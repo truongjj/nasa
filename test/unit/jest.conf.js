@@ -1,6 +1,10 @@
 const path = require('path')
 
 module.exports = {
+  // truongjj config
+  verbose: true,
+  testURL: "http://localhost/",
+  //end truongjj config
   rootDir: path.resolve(__dirname, '../../'),
   moduleFileExtensions: [
     'js',

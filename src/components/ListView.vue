@@ -48,8 +48,8 @@
         <h3 class="txt-left">Không tìm thấy dữ liệu...</h3>
       </div>
       <div class="pagination" v-if="prevLink || nextLink">
-        <button v-if="prevLink" class="btn" @click="handlePrev()">Previous</button>
-        <button v-if="nextLink" class="btn" @click="handleNext()">Next</button>
+        <button v-if="prevLink" class="btn" @click="handlePrevAndNext(prevLink)">Previous</button>
+        <button v-if="nextLink" class="btn" @click="handlePrevAndNext(nextLink)">Next</button>
       </div>
     </div>
   </div>
@@ -87,12 +87,16 @@ export default {
       }
     }
   },
-  async mounted(){
+  async created(){
     this.listImages= this.data
   },
   computed:{
     imagesLength(){
-      return this.listImages.length
+      // return this.listImages.length
+      if(this.listImages){
+        return Object.keys(this.listImages).length
+      }
+      return 0
     },
     sortByName(){
       function compare(a,b){
@@ -111,12 +115,6 @@ export default {
     },
   },
   methods:{
-    hanleSortAZ(){
-      this.listImages=this.sortByName
-    },
-    hanleSortZA(){
-      this.listImages=this.sortByName.reverse()
-    },
     handleLikeAndUnlike(item,idx,value){
       const localData=JSON.parse(localStorage.getItem('data')) //all
       this.listImages=this.listImages.map((image,index)=>{
@@ -149,14 +147,9 @@ export default {
       this.listImages=this.listImages.filter((image,index)=>{return !(index===idx)});
     },
 
-    handlePrev(){
+    handlePrevAndNext(link){
       window.scrollTo(0,0);
-      this.$router.push("/search?q="+this.prevLink.split('?q=')[1])
-    },
-
-    handleNext(){
-      window.scrollTo(0,0);
-      this.$router.push("/search?q="+this.nextLink.split('?q=')[1])
+      this.$router.push("/search?q="+link.split('?q=')[1])
     },
 
   }

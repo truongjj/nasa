@@ -25,7 +25,7 @@
                     <router-link v-for="(item,index) in keywords" :key="index" :to="'/search?q='+item" class="keywords">   {{item}}    </router-link>
                 </p>
                 <div class="edit flex">
-                    <button class="btn" @click="handleEdit()">Edit</button>
+                    <button class="btn" @click="handleEditAndCancel(true)">Edit</button>
                 </div>
             </div>
             <div class="right" v-show="isEdit">
@@ -47,7 +47,7 @@
                     </p> -->
                     <div class="edit flex">
                         <button class="btn-update btn" type="submit">Update</button>
-                        <button type="button" class="btn-cancel btn" @click="handleCancel()">Cancel</button>  
+                        <button type="button" class="btn-cancel btn" @click="handleEditAndCancel(false)">Cancel</button>  
                     </div>
                 </form>
             </div>
@@ -72,62 +72,59 @@ export default {
             isEdit:false,
             dateDetail:0,
             month:0,
-            year:0
+            year:0,
         }
     },
-    mounted(){
+    created(){
         this.data=JSON.parse(localStorage.getItem('data'));
         if(this.data){
             this.detail=this.data.find((item)=>{
-                return item.data[0].nasa_id===this.getParams
+                return item.data[0].nasa_id===this.getParams;
             })
         }
-        this.fetchData
+        this.initData()
     },
     watch:{
         fullDate(newVal){
-            this.date=newVal
+            this.date=newVal;
         }
     },
     computed:{
         getParams(){
             return this.$route.params.nasaid;
         },
-        fetchData(){
+        fullDate(){
+            return this.year+'-'+this.month+'-'+this.dateDetail;
+        }
+    },
+    methods:{
+        initData(){
             this.link=this.detail.links;
             this.title=this.detail.data[0].title;
             this.description=this.detail.data[0].description;
             this.date=this.detail.data[0].date_created.split('T')[0];
             this.center=this.detail.data[0].center;
-            this.keywords=this.detail.data[0].keywords
-            this.dateDetail=this.date.split('-')[2]
-            this.month=this.date.split('-')[1]
-            this.year=this.date.split('-')[0]
+            this.keywords=this.detail.data[0].keywords;
+            this.dateDetail=this.date.split('-')[2];
+            this.month=this.date.split('-')[1];
+            this.year=this.date.split('-')[0];
         },
-        fullDate(){
-            return this.year+'-'+this.month+'-'+this.dateDetail
-        }
-    },
-    methods:{
         handeUpdate(e){
             e.preventDefault()
             this.data.map((item) => {
                 if(item.data[0].nasa_id===this.getParams){
-                    item.data[0].title=this.title
-                    item.data[0].description=this.description,
+                    item.data[0].title=this.title;
+                    item.data[0].description=this.description;
                     item.data[0].date_created=this.year+'-'+this.month+'-'+this.dateDetail+'T'+this.detail.data[0].date_created.split('T')[1];
                 }
             })
-            localStorage.setItem("data",JSON.stringify(this.data))
-            alert("Thay đổi đã được lưu")
-            this.isEdit=false
+            localStorage.setItem("data",JSON.stringify(this.data));
+            alert("Thay đổi đã được lưu");
+            this.isEdit=false;
         },
-        handleEdit(){
-            this.isEdit=true
+        handleEditAndCancel(value){
+            this.isEdit=value;
         },
-        handleCancel(){
-            this.isEdit=false
-        }
     },
     
 }

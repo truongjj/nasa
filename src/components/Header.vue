@@ -25,8 +25,8 @@ export default {
     methods:{
         handleSearch(){
             this.$router.push(`/search?q=${this.keyword}`)
-        }
-    }
+        },
+    },
 
 }
 </script>

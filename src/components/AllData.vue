@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="alldata">
     <div class="container">
       <h3 class="txt-left">All</h3>
     </div>
@@ -11,18 +11,19 @@
 import { mapActions } from "vuex";
 import ListView from '@/components/ListView'
 export default {
-  name: "HelloWorld",
+  name: "AllData",
   data() {
     return {
-      data:[]
+      data:[],
     };
   },
   created(){
     this.data=JSON.parse(localStorage.getItem('data'))
-    if(this.data)
+    if(this.data){
       this.data=this.data.filter((item)=>{
         return item.status.removed===false
       })
+    }
   },
   components:{
     ListView
@@ -33,7 +34,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1,
 h2 {

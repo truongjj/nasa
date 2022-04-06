@@ -1,7 +1,5 @@
 import axios from "axios";
 const state = {
-  resErrors: "",
-  resMessages: "",
   dataSearch:[],
   paginationLinks:[]
 };
