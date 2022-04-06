@@ -37,8 +37,7 @@ export default {
 
     dex(){
       console.log("dex")
-    }
-    ,
+    },
     ...mapActions(["searchData"]),
   },
 };
