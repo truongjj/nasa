@@ -29,6 +29,8 @@ export default {
     ListView
   },
   methods: {
+
+    
     ...mapActions(["searchData"]),
   },
 };
