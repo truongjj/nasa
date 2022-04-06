@@ -30,7 +30,10 @@ export default {
   },
   methods: {
 
-    
+    dex(){
+      console.log("dex")
+    }
+    ,
     ...mapActions(["searchData"]),
   },
 };
