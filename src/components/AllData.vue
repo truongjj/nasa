@@ -25,6 +25,11 @@ export default {
       })
     }
   },
+  methods:{
+    exe(){
+      console.log("exe")
+    }
+  },
   components:{
     ListView
   },
