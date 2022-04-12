@@ -1,9 +1,10 @@
 <template>
   <div class="alldata">
     <div class="container">
-      <h3 class="txt-left">All</h3>
+      <h3 v-theme="theme" class="txt-left">All</h3>
     </div>
-    <ListView :data="data"/>
+    <button @click="handleChangeTheme()">{{theme=="light" ? "dark" : "light"}}</button>
+    <ListView :data="data" />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ export default {
   data() {
     return {
       data:[],
+      theme:'dark'
     };
   },
   created(){
@@ -29,6 +31,10 @@ export default {
     ListView
   },
   methods: {
+    handleChangeTheme(){
+      this.theme = this.theme=="light" ? "dark" : "light"
+      console.log(this.theme)
+    },
     ...mapActions(["searchData"]),
   },
 };
